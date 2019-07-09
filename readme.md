@@ -1,3 +1,10 @@
+## About MongoDBLab
+
+Esta aplicacion es una muestra de como implementar MongoDB con laravel.
+Cuenta con una autentificacion por defecto, misma que provee laravel.
+Esta compuesta con la plantilla de CoreUI y VueJs.
+Este es solo un proyecto personal para aprender, usarlo bajo su propio riesgo.
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

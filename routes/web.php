@@ -13,14 +13,23 @@
 
 use App\User;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware'=>['guest']],function(){
+    Route::get('/','Auth\LoginController@showLoginForm')->name('form.login');
+    Route::post('/login', 'Auth\LoginController@login')->name('login');
+    Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('/register', 'Auth\RegisterController@register');
 });
 
-Auth::routes();
+Route::group(['middleware'=>['auth']],function(){
+    
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/main', function () {
+        return view('content/content');
+    })->name('main');
 
-Route::get('/users', function(){
-    return User::all();
+    Route::get('/users', function(){
+        return User::all();
+    });
+
 });
