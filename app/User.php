@@ -23,7 +23,7 @@ class User extends Moloquent implements AuthenticatableContract, CanResetPasswor
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**

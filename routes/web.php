@@ -11,8 +11,6 @@
 |
 */
 
-use App\User;
-
 Route::group(['middleware'=>['guest']],function(){
     Route::get('/','Auth\LoginController@showLoginForm')->name('form.login');
     Route::post('/login', 'Auth\LoginController@login')->name('login');
@@ -28,8 +26,11 @@ Route::group(['middleware'=>['auth']],function(){
         return view('content/content');
     })->name('main');
 
-    Route::get('/users', function(){
-        return User::all();
-    });
+    Route::get('/categoria', 'CategoriaController@index');
+    Route::post('/categoria/registrar', 'CategoriaController@store');
+    Route::put('/categoria/actualizar', 'CategoriaController@update');
+    Route::put('/categoria/desactivar', 'CategoriaController@desactivar');
+    Route::put('/categoria/activar', 'CategoriaController@activar');
+    
 
 });

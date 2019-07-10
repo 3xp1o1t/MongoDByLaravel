@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
     <template v-if="menu==0">
-        <example-component></example-component>
+
     </template>
     <template v-if="menu==1">
         
@@ -10,7 +10,7 @@
         
     </template>
     <template v-if="menu==3">
-        
+        <categorias></categorias>
     </template>
     <template v-if="menu==4">
         
@@ -34,6 +34,15 @@
         
     </template>
     <template v-if="menu==11">
+
+    </template>
+    <template v-if="menu==12">
+
+    </template>
+    <template v-if="menu==13">
+
+    </template>
+    <template v-if="menu==14">
 
     </template>
 @endsection

@@ -5,6 +5,20 @@ Cuenta con una autentificacion por defecto, misma que provee laravel.
 Esta compuesta con la plantilla de CoreUI y VueJs.
 Este es solo un proyecto personal para aprender, usarlo bajo su propio riesgo.
 
+## Utilizacion
+Despues de clonar el proyecto:
+
+- composer install
+- npm install
+- cp .env.example .env
+- php artisan key:generate
+- Editar las opciones de .env a las de su base de datos.
+- php artisan migrate
+- npm run dev
+- Verificar que todo funcione correctamente :)
+
+La BD de mongodb esta compuesta por las mismas migraciones.
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
