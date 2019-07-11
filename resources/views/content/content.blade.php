@@ -7,7 +7,7 @@
         
     </template>
     <template v-if="menu==2">
-        
+        <editoriales></editoriales>
     </template>
     <template v-if="menu==3">
         <categorias></categorias>

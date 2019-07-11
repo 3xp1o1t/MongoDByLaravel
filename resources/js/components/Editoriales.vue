@@ -2,14 +2,14 @@
     <main class="main">
         <!-- Breadcrumb-->
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">Edicion de Categorias</li>
+            <li class="breadcrumb-item">Edicion de Editoriales</li>
         </ol>
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Categorias
+                        <i class="fa fa-align-justify"></i> Editoriales
                         <button type="button" class="btn btn-secondary float-right ml-1" @click="abrirModal(0)">
                             <i class="icon-plus"></i>&nbsp;Nueva
                         </button>
@@ -22,8 +22,8 @@
                                         <option value="nombre">Nombre</option>
                                         <option value="descripcion">Descripcion</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarCategorias(1,buscar, filtro)" class="form-control" placeholder="...">
-                                    <button type="submit" @click="listarCategorias(1, buscar, filtro)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarEditoriales(1,buscar, filtro)" class="form-control" placeholder="...">
+                                    <button type="submit" @click="listarEditoriales(1, buscar, filtro)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -37,26 +37,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="categoria in arrayCategorias" :key="categoria._id.$oid">
+                            <tr v-for="editorial in arrayEditoriales" :key="editorial._id.$iod">
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm" @click="abrirModal(1, categoria)">
+                                    <button type="button" class="btn btn-warning btn-sm" @click="abrirModal(1, editorial)">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <template v-if="categoria.estado">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarCategoria(categoria._id.$oid)">
+                                    <template v-if="editorial.estado">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarEditorial(editorial._id.$oid)">
                                             <i class="icon-trash"></i>
                                         </button>
                                     </template>
                                     <template v-else>
-                                        <button type="button" class="btn btn-success btn-sm" @click="activarCategoria(categoria._id.$oid)">
+                                        <button type="button" class="btn btn-success btn-sm" @click="activarEditorial(editorial._id.$oid)">
                                             <i class="icon-check"></i>
                                         </button>
                                     </template>
                                 </td>
-                                <td v-text="categoria.nombre"></td>
-                                <td v-text="categoria.descripcion"></td>
+                                <td v-text="editorial.nombre"></td>
+                                <td v-text="editorial.descripcion"></td>
                                 <td>
-                                    <div v-if="categoria.estado">
+                                    <div v-if="editorial.estado">
                                         <span class="badge badge-success">Activo</span>
                                     </div>
                                     <div v-else>
@@ -108,8 +108,8 @@
                     </div>
                     <div class="row">
                         <div class="col text-right">
-                            <button type="button" v-if="accion===0" class="btn btn-success" @click="registrarCategoria">Guardar</button>
-                            <button type="button" v-if="accion===1" class="btn btn-success" @click="actualizarCategoria">Actualizar</button>
+                            <button type="button" v-if="accion===0" class="btn btn-success" @click="registrarEditorial">Guardar</button>
+                            <button type="button" v-if="accion===1" class="btn btn-success" @click="actualizarEditorial">Actualizar</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                 mostrarMR: false,
                 accion: 0,
                 tituloVentana: '',
-                arrayCategorias:[],
+                arrayEditoriales:[],
                 id: 0,
                 nombre: '',
                 descripcion: '',
@@ -140,7 +140,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                filtro: "name",
+                filtro: "nombre",
                 buscar: ''
             }
         },
@@ -178,7 +178,7 @@
                 switch(accion){
                     case 0:
                     {
-                        this.tituloVentana = 'Nueva categoria';
+                        this.tituloVentana = 'Nuevo editorial';
                         this.nombre = '';
                         this.descripcion = '';
                         this.mostrarMR = true;
@@ -187,7 +187,7 @@
                     }
                     case 1:
                     {
-                        this.tituloVentana = 'Actualizar categoria';
+                        this.tituloVentana = 'Actualizar editorial';
                         this.nombre = data['nombre'];
                         this.descripcion = data['descripcion'];
                         this.id = data['_id'].$oid;
@@ -198,12 +198,12 @@
 
                 }
             },
-            listarCategorias(page, buscar, filtro){
+            listarEditoriales(page, buscar, filtro){
                 let me = this;
-                let url = '/categoria?page=' + page + '&buscar=' + buscar + '&filtro=' + filtro;
-                axios.get(url).then(function (response) {                    
+                let url = '/editorial?page=' + page + '&buscar=' + buscar + '&filtro=' + filtro;
+                axios.get(url).then(function (response) {
                     let respuesta = response.data;
-                    me.arrayCategorias = respuesta.categorias.data;
+                    me.arrayEditoriales = respuesta.editoriales.data;
                     me.pagination = respuesta.pagination;
                 }).catch(function (error) {
                     console.log(error);
@@ -214,23 +214,24 @@
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarCategorias(page, buscar, filtro);
+                me.listarEditoriales(page, buscar, filtro);
             },
-            registrarCategoria(){
+            //TODO
+            registrarEditorial(){
                 let me = this;
-                axios.post('/categoria/registrar',{
+                axios.post('/editorial/registrar',{
                     'nombre': this.nombre,
                     'descripcion': this.descripcion
                 }).then(function (response) {
                     Swal.fire({
                         position: 'top-end',
                         type: 'success',
-                        title: 'Categoria agregada con exito!',
+                        title: 'Editorial agregada con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     });
                     me.mostrarMR = false;
-                    me.listarCategorias(1,'','nombre');
+                    me.listarEditoriales(1,'','nombre');
                 }).catch(function (error) {
                     Swal.fire({
                         position: 'top-end',
@@ -239,9 +240,9 @@
                     });
                 });
             },
-            actualizarCategoria(){
+            actualizarEditorial(){
                 let me = this;
-                axios.put('/categoria/actualizar',{
+                axios.put('/editorial/actualizar',{
                     'nombre': this.nombre,
                     'descripcion': this.descripcion,
                     'id': this.id
@@ -249,12 +250,12 @@
                     Swal.fire({
                         position: 'top-end',
                         type: 'success',
-                        title: 'Categoria actualizada con exito!',
+                        title: 'Editorial actualizada con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     });
                     me.mostrarMR = false;
-                    me.listarCategorias(1,'','nombre');
+                    me.listarEditoriales(1,'','nombre');
                 }).catch(function (error) {
                     Swal.fire({
                         position: 'top-end',
@@ -263,9 +264,9 @@
                     });
                 })
             },
-            desactivarCategoria(id){
+            desactivarEditorial(id){
                 Swal.fire({
-                    title: 'Esta seguro de eliminar esta Categoria?',
+                    title: 'Esta seguro de eliminar esta Editorial?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -279,10 +280,10 @@
                 }).then((result) => {
                     if (result.value) {
                         let me = this;
-                        axios.put('/categoria/desactivar',{
+                        axios.put('/editorial/desactivar',{
                             'id': id
                         }).then(function (response) {
-                            me.listarCategorias(1,'','nombre');
+                            me.listarEditoriales(1,'','nombre');
                             Swal.fire({
                                 title:'Desactivado!',
                                 text:'El registro ha sido desactivado con éxito.',
@@ -303,9 +304,9 @@
                     }
                 });
             },
-            activarCategoria(id){
+            activarEditorial(id){
                 Swal.fire({
-                    title: 'Esta seguro de recuperar esta Categoria?',
+                    title: 'Esta seguro de recuperar esta Editorial?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -319,10 +320,10 @@
                 }).then((result) => {
                     if (result.value) {
                         let me = this;
-                        axios.put('/categoria/activar',{
+                        axios.put('/editorial/activar',{
                             'id': id
                         }).then(function (response) {
-                            me.listarCategorias(1,'','nombre');
+                            me.listarEditoriales(1,'','nombre');
                             Swal.fire({
                                 title:'Recuperado!',
                                 text:'El registro ha sido recuperado con éxito.',
@@ -345,7 +346,7 @@
             }
         },
         mounted() {
-            this.listarCategorias(1, this.buscar, this.filtro);
+            this.listarEditoriales(1, this.buscar, this.filtro);
         }
     }
 </script>
@@ -354,4 +355,3 @@
         margin-top: 15px;
     }
 </style>
-

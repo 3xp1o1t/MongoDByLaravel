@@ -14,11 +14,11 @@ class CategoriaController extends Controller
 
         if($buscar == ''){
             
-            $categorias = DB::collection('categorias')->orderBy('name', 'asc')->paginate(10);                
+            $categorias = DB::collection('categorias')->orderBy('nombre', 'asc')->paginate(10);                
                 
         }else{
             $categorias = DB::collection('categorias')->where($filtro, 'like', '%'. $buscar . '%')
-                ->orderBy('name', 'asc')
+                ->orderBy('nombre', 'asc')
                 ->paginate(10);
         }
         $result = [
@@ -38,28 +38,28 @@ class CategoriaController extends Controller
 
     public function store(Request $request){
         $categoria = new Categoria();
-        $categoria->name = $request->nombre;
-        $categoria->description = $request->descripcion;
-        $categoria->status = true;
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->estado = true;
         $categoria->save();
     }
 
     public function update(Request $request){
         $categoria = Categoria::findOrFail($request->id);
-        $categoria->name = $request->nombre;
-        $categoria->description = $request->descripcion;
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
         $categoria->save();
     }
 
     public function desactivar(Request $request){
         $categoria = Categoria::findOrFail($request->id);
-        $categoria->status = false;
+        $categoria->estado = false;
         $categoria->save();
     }
 
     public function activar(Request $request){
         $categoria = Categoria::findOrFail($request->id);
-        $categoria->status = true;
+        $categoria->estado = true;
         $categoria->save();
     }
 

@@ -31,6 +31,12 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/categoria/actualizar', 'CategoriaController@update');
     Route::put('/categoria/desactivar', 'CategoriaController@desactivar');
     Route::put('/categoria/activar', 'CategoriaController@activar');
+
+    Route::get('/editorial', 'EditorialController@index');
+    Route::post('/editorial/registrar', 'EditorialController@store');
+    Route::put('/editorial/actualizar', 'EditorialController@update');
+    Route::put('/editorial/desactivar', 'EditorialController@desactivar');
+    Route::put('/editorial/activar', 'EditorialController@activar');
     
 
 });
